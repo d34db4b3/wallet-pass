@@ -242,112 +242,133 @@ impl Template {
     /// A URL to be passed to the associated app when launching it. The app receives this URL in
     /// the application:didFinishLaunchingWithOptions: and application:openURL:options: methods
     /// of its app delegate.
-    pub fn app_launch_url<S: Into<String>>(&mut self, app_launch_url: S) {
+    pub fn app_launch_url<S: Into<String>>(&mut self, app_launch_url: S) -> &mut Self {
         self.app_launch_url = Some(app_launch_url.into());
+        self
     }
 
     /// A list of iTunes Store item identifiers for the associated apps.
     /// Only one item in the list is used—the first item identifier for an app compatible with
     /// the current device. If the app is not installed, the link opens the App Store and shows
     /// the app. If the app is already installed, the link launches the app.
-    pub fn add_associated_store_identifiers(&mut self, associated_store_identifier: f64) {
+    pub fn add_associated_store_identifiers(
+        &mut self,
+        associated_store_identifier: f64,
+    ) -> &mut Self {
         self.associated_store_identifiers
             .get_or_insert_with(Vec::new)
             .push(associated_store_identifier);
+        self
     }
 
     /// A list of iTunes Store item identifiers for the associated apps.
     /// Only one item in the list is used—the first item identifier for an app compatible with
     /// the current device. If the app is not installed, the link opens the App Store and shows
     /// the app. If the app is already installed, the link launches the app.
-    pub fn clear_associated_store_identifiers(&mut self) {
+    pub fn clear_associated_store_identifiers(&mut self) -> &mut Self {
         self.associated_store_identifiers = None;
+        self
     }
 
     /// The authentication token to use with the web service.
-    pub fn authentication_token<S: Into<String>>(&mut self, authentication_token: S) {
+    pub fn authentication_token<S: Into<String>>(&mut self, authentication_token: S) -> &mut Self {
         self.authentication_token = Some(authentication_token.into());
+        self
     }
 
     /// Background color of the pass, specified as an CSS-style RGB triple.
-    pub fn background_color<S: Into<String>>(&mut self, background_color: S) {
+    pub fn background_color<S: Into<String>>(&mut self, background_color: S) -> &mut Self {
         self.background_color = Some(background_color.into());
+        self
     }
 
     /// Information specific to the pass’s barcode.
     /// Deprecated in iOS 9.0 and later; use barcodes instead.
-    pub fn barcode(&mut self, barcode: Barcode) {
+    pub fn barcode(&mut self, barcode: Barcode) -> &mut Self {
         self.barcode = Some(barcode);
+        self
     }
 
     /// Information specific to the pass’s barcode. The system uses the first valid barcode
     /// dictionary in the array. Additional dictionaries can be added as fallbacks.
     /// Available only in iOS 9.0 and later.
-    pub fn add_barcodes(&mut self, barcode: Barcode) {
+    pub fn add_barcodes(&mut self, barcode: Barcode) -> &mut Self {
         self.barcodes.get_or_insert_with(Vec::new).push(barcode);
+        self
     }
 
     /// Information specific to the pass’s barcode. The system uses the first valid barcode
     /// dictionary in the array. Additional dictionaries can be added as fallbacks.
     /// Available only in iOS 9.0 and later.
-    pub fn clear_barcodes(&mut self) {
+    pub fn clear_barcodes(&mut self) -> &mut Self {
         self.barcodes = None;
+        self
     }
 
     /// Beacons marking locations where the pass is relevant.
     /// Available in iOS 7.0.
-    pub fn add_beacon(&mut self, beacon: Beacon) {
+    pub fn add_beacon(&mut self, beacon: Beacon) -> &mut Self {
         self.beacons.get_or_insert_with(Vec::new).push(beacon);
+        self
     }
 
     /// Beacons marking locations where the pass is relevant.
     /// Available in iOS 7.0.
-    pub fn clear_beacons(&mut self) {
+    pub fn clear_beacons(&mut self) -> &mut Self {
         self.beacons = None;
+        self
     }
 
     /// Information specific to a boarding pass.
-    pub fn boarding_pass(&mut self, boarding_pass: BoardingPass) {
+    pub fn boarding_pass(&mut self, boarding_pass: BoardingPass) -> &mut Self {
         self.boarding_pass = Some(boarding_pass);
+        self
     }
 
     /// Information specific to a coupon.
-    pub fn coupon(&mut self, coupon: Details) {
+    pub fn coupon(&mut self, coupon: Details) -> &mut Self {
         self.coupon = Some(coupon);
+        self
     }
 
     /// Brief description of the pass, used by the iOS accessibility technologies.
     /// Don’t try to include all of the data on the pass in its description, just include enough
     /// detail to distinguish passes of the same type.
     /// Localizable.
-    pub fn description<S: Into<String>>(&mut self, description: S) {
+    pub fn description<S: Into<String>>(&mut self, description: S) -> &mut Self {
         self.description = description.into();
+        self
     }
 
     /// Information specific to an event ticket.
-    pub fn event_ticket(&mut self, event_ticket: Details) {
+    pub fn event_ticket(&mut self, event_ticket: Details) -> &mut Self {
         self.event_ticket = Some(event_ticket);
+        self
     }
 
     /// Date and time when the pass expires.
     /// Available in iOS 7.0.
-    pub fn expiration_date<S: Into<String>>(&mut self, expiration_date: S) {
+    pub fn expiration_date<S: Into<String>>(&mut self, expiration_date: S) -> &mut Self {
         self.expiration_date = Some(expiration_date.into());
+        self
     }
 
     /// Foreground color of the pass, specified as a CSS-style RGB triple
-    pub fn foreground_color<S: Into<String>>(&mut self, foreground_color: S) {
+    pub fn foreground_color<S: Into<String>>(&mut self, foreground_color: S) -> &mut Self {
         self.foreground_color = Some(foreground_color.into());
+        self
     }
 
     /// Version of the file format.
-    pub fn format_version(&mut self, format_version: serde_json::Value) {
+    pub fn format_version(&mut self, format_version: serde_json::Value) -> &mut Self {
         self.format_version = Some(format_version);
+        self
     }
 
     /// Information specific to a generic pass.
-    pub fn generic(&mut self, generic: Details) {
+    pub fn generic(&mut self, generic: Details) -> &mut Self {
         self.generic = Some(generic);
+        self
     }
 
     /// Identifier used to group related passes. If a grouping identifier is specified, passes
@@ -356,85 +377,99 @@ impl Template {
     /// Use this to group passes that are tightly related, such as the boarding passes for
     /// different connections of the same trip.
     /// Available in iOS 7.0.
-    pub fn grouping_identifier<S: Into<String>>(&mut self, grouping_identifier: S) {
+    pub fn grouping_identifier<S: Into<String>>(&mut self, grouping_identifier: S) -> &mut Self {
         self.grouping_identifier = Some(grouping_identifier.into());
+        self
     }
 
     /// olor of the label text, specified as a CSS-style RGB triple.
     /// If omitted, the label color is determined automatically.
-    pub fn label_color<S: Into<String>>(&mut self, label_color: S) {
+    pub fn label_color<S: Into<String>>(&mut self, label_color: S) -> &mut Self {
         self.label_color = Some(label_color.into());
+        self
     }
 
     /// Locations where the pass is relevant. For example, the location of your store.
-    pub fn add_location(&mut self, location: Location) {
+    pub fn add_location(&mut self, location: Location) -> &mut Self {
         self.locations.get_or_insert_with(Vec::new).push(location);
+        self
     }
 
     /// Locations where the pass is relevant. For example, the location of your store.
-    pub fn clear_locations(&mut self) {
+    pub fn clear_locations(&mut self) -> &mut Self {
         self.locations = None;
+        self
     }
 
     /// Text displayed next to the logo on the pass.
     /// Localizable.
-    pub fn logo_text<S: Into<String>>(&mut self, logo_text: S) {
+    pub fn logo_text<S: Into<String>>(&mut self, logo_text: S) -> &mut Self {
         self.logo_text = Some(logo_text.into());
+        self
     }
 
     /// Maximum distance in meters from a relevant latitude and longitude that the pass is
     /// relevant. This number is compared to the pass’s default distance and the smaller value is
     /// used.
     /// Available in iOS 7.0.
-    pub fn max_distance(&mut self, max_distance: f64) {
+    pub fn max_distance(&mut self, max_distance: f64) -> &mut Self {
         self.max_distance = Some(max_distance);
+        self
     }
 
     /// Information used for Value Added Service Protocol transactions.
     /// Available in iOS 9.0.
-    pub fn nfc(&mut self, nfc: Nfc) {
+    pub fn nfc(&mut self, nfc: Nfc) -> &mut Self {
         self.nfc = Some(nfc);
+        self
     }
 
     /// Display name of the organization that originated and signed the pass.
     /// Localizable.
-    pub fn organization_name<S: Into<String>>(&mut self, organization_name: S) {
+    pub fn organization_name<S: Into<String>>(&mut self, organization_name: S) -> &mut Self {
         self.organization_name = organization_name.into();
+        self
     }
 
     /// Pass type identifier, as issued by Apple. The value must correspond with your signing
     /// certificate.
-    pub fn pass_type_identifier<S: Into<String>>(&mut self, pass_type_identifier: S) {
+    pub fn pass_type_identifier<S: Into<String>>(&mut self, pass_type_identifier: S) -> &mut Self {
         self.pass_type_identifier = pass_type_identifier.into();
+        self
     }
 
     /// Date and time when the pass becomes relevant. For example, the start time of a movie.
     /// Recommended for event tickets and boarding passes.
-    pub fn relevant_date<S: Into<String>>(&mut self, relevant_date: S) {
+    pub fn relevant_date<S: Into<String>>(&mut self, relevant_date: S) -> &mut Self {
         self.relevant_date = Some(relevant_date.into());
+        self
     }
 
     /// Serial number that uniquely identifies the pass. No two passes with the same pass type
     /// identifier may have the same serial number.
-    pub fn serial_number<S: Into<String>>(&mut self, serial_number: S) {
+    pub fn serial_number<S: Into<String>>(&mut self, serial_number: S) -> &mut Self {
         self.serial_number = serial_number.into();
+        self
     }
 
     /// Information specific to a store card.
-    pub fn store_card(&mut self, store_card: Details) {
+    pub fn store_card(&mut self, store_card: Details) -> &mut Self {
         self.store_card = Some(store_card);
+        self
     }
 
     /// If true, the strip image is displayed without a shine effect. The default value prior to
     /// iOS 7.0 is false. In iOS 7.0, a shine effect is never applied, and this key is deprecated.
-    pub fn suppress_strip_shine(&mut self, suppress_strip_shine: bool) {
+    pub fn suppress_strip_shine(&mut self, suppress_strip_shine: bool) -> &mut Self {
         self.suppress_strip_shine = Some(suppress_strip_shine);
+        self
     }
 
     /// Team identifier of the organization that originated and signed the pass, as issued by
     /// Apple.
-    pub fn team_identifier<S: Into<String>>(&mut self, team_identifier: S) {
+    pub fn team_identifier<S: Into<String>>(&mut self, team_identifier: S) -> &mut Self {
         self.team_identifier = Some(team_identifier.into());
+        self
     }
 
     /// Custom information for companion apps. This data is not displayed to the user.
@@ -442,10 +477,15 @@ impl Template {
     /// and sandwich in a machine-readable form for the companion app to read, making it easy to
     /// place an order for “the usual” from the app.
     /// Available in iOS 7.0.
-    pub fn add_user_info<S: Into<String>>(&mut self, key: S, value: serde_json::Value) {
+    pub fn add_user_info<S: Into<String>>(
+        &mut self,
+        key: S,
+        value: serde_json::Value,
+    ) -> &mut Self {
         self.user_info
             .get_or_insert_with(HashMap::new)
             .insert(key.into(), Some(value));
+        self
     }
 
     /// Custom information for companion apps. This data is not displayed to the user.
@@ -453,23 +493,26 @@ impl Template {
     /// and sandwich in a machine-readable form for the companion app to read, making it easy to
     /// place an order for “the usual” from the app.
     /// Available in iOS 7.0.
-    pub fn clear_user_info(&mut self) {
+    pub fn clear_user_info(&mut self) -> &mut Self {
         self.user_info = None;
+        self
     }
 
     /// Indicates that the pass is void—for example, a one time use coupon that has been
     /// redeemed.
     /// Available in iOS 7.0.
-    pub fn voided(&mut self, voided: bool) {
+    pub fn voided(&mut self, voided: bool) -> &mut Self {
         self.voided = Some(voided);
+        self
     }
 
     /// The URL of a web service that conforms to the API described in PassKit Web Service
     /// Reference. The web service must use the HTTPS protocol; the leading https:// is included
     /// in the value of this key. On devices configured for development, there is UI in Settings
     /// to allow HTTP web services.
-    pub fn web_service_url<S: Into<String>>(&mut self, web_service_url: S) {
+    pub fn web_service_url<S: Into<String>>(&mut self, web_service_url: S) -> &mut Self {
         self.web_service_url = Some(web_service_url.into());
+        self
     }
 }
 
@@ -742,40 +785,46 @@ impl Field {
     /// The value may contain HTML markup for links. Only the <a> tag and its href attribute are
     /// supported. This key’s value overrides the text specified by the value key.
     /// Available in iOS 7.0.
-    pub fn attributed_value(&mut self, attributed_value: ValueUnion) {
+    pub fn attributed_value(&mut self, attributed_value: ValueUnion) -> &mut Self {
         self.attributed_value = Some(attributed_value);
+        self
     }
 
     /// Format string for the alert text that is displayed when the pass is updated. The format
     /// string must contain the escape %@, which is replaced with the field’s new value. If you
     /// don’t specify a change message, the user isn’t notified when the field changes.
     /// Localizable.
-    pub fn change_message<S: Into<String>>(&mut self, change_message: S) {
+    pub fn change_message<S: Into<String>>(&mut self, change_message: S) -> &mut Self {
         self.change_message = Some(change_message.into());
+        self
     }
 
     /// Code of currency
-    pub fn currency_code<S: Into<String>>(&mut self, currency_code: S) {
+    pub fn currency_code<S: Into<String>>(&mut self, currency_code: S) -> &mut Self {
         self.currency_code = Some(currency_code.into());
+        self
     }
 
     /// Data detectors that are applied to the field’s value. Provide an empty array to use no
     /// data detectors. Data detectors are applied only to back fields.
-    pub fn clear_data_detector_types(&mut self) {
+    pub fn clear_data_detector_types(&mut self) -> &mut Self {
         self.data_detector_types = None;
+        self
     }
 
     /// Data detectors that are applied to the field’s value. Provide an empty array to use no
     /// data detectors. Data detectors are applied only to back fields.
-    pub fn add_data_detector_type(&mut self, data_detector_type: serde_json::Value) {
+    pub fn add_data_detector_type(&mut self, data_detector_type: serde_json::Value) -> &mut Self {
         self.data_detector_types
             .get_or_insert_with(Vec::new)
             .push(data_detector_type);
+        self
     }
 
     /// Style of date to display.
-    pub fn date_style(&mut self, date_style: EStyle) {
+    pub fn date_style(&mut self, date_style: EStyle) -> &mut Self {
         self.date_style = Some(date_style);
+        self
     }
 
     /// Always display the time and date in the given time zone, not in the user’s current time
@@ -785,45 +834,52 @@ impl Field {
     /// information is displayed meaningfully even without ignoring time zones.
     /// This key does not affect how relevance is calculated.
     /// Available in iOS 7.0.
-    pub fn ignores_time_zone(&mut self, ignores_time_zone: bool) {
+    pub fn ignores_time_zone(&mut self, ignores_time_zone: bool) -> &mut Self {
         self.ignores_time_zone = Some(ignores_time_zone);
+        self
     }
 
     /// If true, the label’s value is displayed as a relative date; otherwise, it is displayed as
     /// an absolute date.
     /// This key does not affect how relevance is calculated.
-    pub fn is_relative(&mut self, is_relative: bool) {
+    pub fn is_relative(&mut self, is_relative: bool) -> &mut Self {
         self.is_relative = Some(is_relative);
+        self
     }
 
     /// Label text for the field.
     /// Localizable.
-    pub fn label<S: Into<String>>(&mut self, label: S) {
+    pub fn label<S: Into<String>>(&mut self, label: S) -> &mut Self {
         self.label = Some(label.into());
+        self
     }
 
     /// Style of number to display. Number styles have the same meaning as the Cocoa number
     /// formatter styles with corresponding names. See
     /// https://developer.apple.com/documentation/foundation/nsnumberformatterstyle
-    pub fn number_style(&mut self, number_style: NumberStyle) {
+    pub fn number_style(&mut self, number_style: NumberStyle) -> &mut Self {
         self.number_style = Some(number_style);
+        self
     }
 
     /// Machine-readable metadata to allow the system to offer Wallet passes to users
     /// intelligently.
-    pub fn semantics(&mut self, semantics: Semantics) {
+    pub fn semantics(&mut self, semantics: Semantics) -> &mut Self {
         self.semantics = Some(semantics);
+        self
     }
 
     /// Alignment for the field’s contents.
     /// This key is not allowed for primary fields or back fields.
-    pub fn text_alignment(&mut self, text_alignment: TextAlignment) {
+    pub fn text_alignment(&mut self, text_alignment: TextAlignment) -> &mut Self {
         self.text_alignment = Some(text_alignment);
+        self
     }
 
     /// Style of time to display.
-    pub fn time_style(&mut self, time_style: EStyle) {
+    pub fn time_style(&mut self, time_style: EStyle) -> &mut Self {
         self.time_style = Some(time_style);
+        self
     }
 }
 
@@ -1578,66 +1634,77 @@ impl Details {
     }
 
     /// Type of transit.
-    pub fn transit_type(&mut self, transit_type: TransitType) {
+    pub fn transit_type(&mut self, transit_type: TransitType) -> &mut Self {
         self.transit_type = Some(transit_type);
+        self
     }
 
     /// Add additional field to be displayed on the front of the pass.
-    pub fn add_auxiliary_field(&mut self, field: Field) {
+    pub fn add_auxiliary_field(&mut self, field: Field) -> &mut Self {
         self.auxiliary_fields
             .get_or_insert_with(Vec::new)
             .push(field);
+        self
     }
 
     /// Remove additional fields to be displayed on the front of the pass.
-    pub fn clear_auxiliary_fields(&mut self) {
+    pub fn clear_auxiliary_fields(&mut self) -> &mut Self {
         self.auxiliary_fields = None;
+        self
     }
 
     /// Add field to be on the back of the pass.
-    pub fn add_back_field(&mut self, field: Field) {
+    pub fn add_back_field(&mut self, field: Field) -> &mut Self {
         self.back_fields.get_or_insert_with(Vec::new).push(field);
+        self
     }
 
     /// Remove fields to be on the back of the pass.
-    pub fn clear_back_fields(&mut self) {
+    pub fn clear_back_fields(&mut self) -> &mut Self {
         self.back_fields = None;
+        self
     }
 
     /// Add field to be displayed in the header on the front of the pass. Use header fields
     /// sparingly; unlike all other fields, they remain visible when a stack of passes are
     /// displayed.
-    pub fn add_header_field(&mut self, field: Field) {
+    pub fn add_header_field(&mut self, field: Field) -> &mut Self {
         self.header_fields.get_or_insert_with(Vec::new).push(field);
+        self
     }
 
     /// Remove fields to be displayed in the header on the front of the pass. Use header fields
     /// sparingly; unlike all other fields, they remain visible when a stack of passes are
     /// displayed.
-    pub fn clear_header_fields(&mut self) {
+    pub fn clear_header_fields(&mut self) -> &mut Self {
         self.header_fields = None;
+        self
     }
 
     /// Add field to be displayed prominently on the front of the pass.    
-    pub fn add_primary_field(&mut self, field: Field) {
+    pub fn add_primary_field(&mut self, field: Field) -> &mut Self {
         self.primary_fields.get_or_insert_with(Vec::new).push(field);
+        self
     }
 
     /// Remove fields to be displayed prominently on the front of the pass.
-    pub fn clear_primary_fields(&mut self) {
+    pub fn clear_primary_fields(&mut self) -> &mut Self {
         self.primary_fields = None;
+        self
     }
 
     /// Add field to be displayed on the front of the pass.
-    pub fn add_secondary_field(&mut self, field: Field) {
+    pub fn add_secondary_field(&mut self, field: Field) -> &mut Self {
         self.secondary_fields
             .get_or_insert_with(Vec::new)
             .push(field);
+        self
     }
 
     /// Remove fields to be displayed on the front of the pass.
-    pub fn clear_secondary_fields(&mut self) {
+    pub fn clear_secondary_fields(&mut self) -> &mut Self {
         self.secondary_fields = None;
+        self
     }
 }
 
